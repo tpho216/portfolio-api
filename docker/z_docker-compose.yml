@@ -1,0 +1,10 @@
+version: '3'
+services:
+  portfolio-api:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    env_file:
+      - ../.env
+    environment:
+      - NODE_ENV=production
