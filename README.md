@@ -1,5 +1,22 @@
 # Portfolio API backend that is deployed to Azure Web App
 
+
+## SET UP GUIDE
+`git clone https://github.com/tpho216/portfolio-api.git`
+
+then run `npm install`
+
+also `npm update`
+
+then acquire these files (or folders)
+
+`typeormconfig.json` (generated)
+
+`/keys` which includes `.develpment-key.env` and `.production-key.env`
+
+### to deploy
+Replace the appropriate secret keys for scripts under `docker`
+
 ## Descrition
 Return data for portfolio site (front end)
 
@@ -68,3 +85,4 @@ This is famous folders, but will always be generated with `npm run install`
 
 #### dist
 This is build folder, will be generated with `npm run build`
+
