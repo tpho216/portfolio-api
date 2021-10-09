@@ -10,7 +10,7 @@ also `npm update`
 
 then acquire these files (or folders)
 
-`typeormconfig.json` (generated)
+`ormconfig.json` (generated)
 
 `/keys` which includes `.develpment-key.env` and `.production-key.env`
 
