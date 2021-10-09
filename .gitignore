@@ -39,5 +39,6 @@ lerna-debug.log*
 .env
 
 
-#This contains KEY!!!
-ormconfig.json
+#These files contains KEYS!!! NEVER COMMIT
+docker/2_run_docker_container_locally.sh
+docker/4_azure_assign_app_setting.sh

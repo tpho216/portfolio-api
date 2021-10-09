@@ -1,0 +1,22 @@
+**this file must be generated, configured env, secrets are hidden**
+
+{
+  "type": "***SECRETS**",
+  "host": "***SECRETS**",
+  "port": 5432,
+  "username": "***SECRETS**",
+  "password": "***SECRETS**",
+  "database": "***SECRETS**",
+  "entities": [
+    "**/*.entity{.ts,.js}"
+  ],
+  "migrationsTableName": "migration",
+  "migrations": [
+    "src/migration/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "src/migration",
+    "entitiesDir": "src/entity"
+  },
+  "ssl": true
+}
