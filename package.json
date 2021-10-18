@@ -18,6 +18,7 @@
     "typeorm:migration:run": "npm run typeorm -- migration:run",
     "start:dev:nodemon": "nodemon --config nodemon.json",
     "start:dev:db:seed": "ts-node -r tsconfig-paths/register src/scripts/seed.ts",
+    "start:dev:db:skill_seed": "ts-node -r tsconfig-paths/register src/scripts/skill_seed.ts",
     "pretypeorm": "(rm ormconfig.json || :) && ts-node -r tsconfig-paths/register src/config/orm.config.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "typeorm:migration:generate": "npm run typeorm -- migration:generate -n",

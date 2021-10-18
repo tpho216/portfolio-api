@@ -8,13 +8,15 @@ import { ProjectDTO } from "./project.dto";
 
 @Injectable()
 export class ProjectService {
-  constructor (@InjectRepository(Project) private readonly repo: Repository<Project>) {}
+  constructor (@InjectRepository(Project) private readonly repo:
+                 Repository<Project>) {}
 
   public async getAll() {
     return await this.repo.find();
   }
 
   public async create(dto: ProjectDTO) : Promise<ProjectDTO> {
-    return this.repo.save(dto.toEntity()).then(e => ProjectDTO.fromEntity(e))
+    return this.repo.save(dto.toEntity()).then(e =>
+      ProjectDTO.fromEntity(e))
   }
 }
