@@ -32,11 +32,11 @@ export class ProjectDTO implements Readonly<ProjectDTO> {
     })
   }
 
-  public toEntity() {
+  public static toEntity = (object : any) => {
     const proj = new Project();
-    proj.id = this.id;
-    proj.name = this.name;
-    proj.description = this.description;
+    proj.id = object.id;
+    proj.name = object.name;
+    proj.description = object.description;
     return proj;
   }
 

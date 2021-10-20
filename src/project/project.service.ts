@@ -9,14 +9,35 @@ import { ProjectDTO } from "./project.dto";
 @Injectable()
 export class ProjectService {
   constructor (@InjectRepository(Project) private readonly repo:
-                 Repository<Project>) {}
+                 Repository<Project>) {
 
-  public async getAll() {
-    return await this.repo.find();
   }
 
-  public async create(dto: ProjectDTO) : Promise<ProjectDTO> {
-    return this.repo.save(dto.toEntity()).then(e =>
-      ProjectDTO.fromEntity(e))
+  public async getAll() {
+    const result = await this.repo.find();
+    return result;
+  }
+
+  public async create(object: any) : Promise<ProjectDTO> {
+    try {
+      // const dummyProj = new Project();
+      // dummyProj.name = "randomName";
+      // dummyProj.description = "randomDesc";
+      // const result = await this.repo.save(dummyProj);
+      const projEntity = ProjectDTO.toEntity(object);
+      return this.repo.save(projEntity).then(e => {
+          return ProjectDTO.fromEntity(e)
+        })
+
+    }
+    catch (e) {
+      console.log(e);
+      throw e;
+    }
+  }
+
+  public async destroy(id: string) {
+    await this.repo.delete({id});
+    return { deleted : true }
   }
 }
