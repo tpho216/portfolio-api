@@ -9,7 +9,8 @@
   "scripts": {
     "run docker compose": "/docker/docker-compose up",
     "set:build:deploy_image_azure": "npm run set:production && npm run build && ./docker/3_push_image_to_azure.sh",
-    "set:build:deploy_locally": "npm run set:production && npm run build && npm run start:prod",
+    "set:build:deploy_dev_local": "npm run set:development && npm run build && npm run start:dev",
+    "set:build:deploy_production_local": "npm run set:production && npm run build && npm run start:prod",
     "set:production": "ts-node configure-env.ts production",
     "set:development": "ts-node configure-env.ts development",
     "start:dev:db": "./src/scripts/start-db.sh",
@@ -17,7 +18,7 @@
     "typeorm:migration:init": "npm run typeorm:migration:generate -- init",
     "typeorm:migration:run": "npm run typeorm -- migration:run",
     "start:dev:nodemon": "nodemon --config nodemon.json",
-    "start:dev:db:seed": "ts-node -r tsconfig-paths/register src/scripts/seed.ts",
+    "start:dev:db:project_seed": "ts-node -r tsconfig-paths/register src/scripts/project_seed.ts",
     "start:dev:db:skill_seed": "ts-node -r tsconfig-paths/register src/scripts/skill_seed.ts",
     "pretypeorm": "(rm ormconfig.json || :) && ts-node -r tsconfig-paths/register src/config/orm.config.ts",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
