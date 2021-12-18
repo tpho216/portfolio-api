@@ -38,22 +38,13 @@ const POSTGRES_USER = env.APPSETTINGS_POSTGRES_USER;
 const POSTGRES_PASSWORD = env.APPSETTINGS_POSTGRES_PASSWORD;
 const POSTGRES_DATABASE = env.APPSETTINGS_POSTGRES_DATABASE;
 
-// const PORT = process.env['APPSETTINGS_PORT'];
-// const MODE = process.env['APPSETTINGS_MODE'];
-// const POSTGRES_HOST = process.env['APPSETTINGS_POSTGRES_HOST'];
-// const POSTGRES_PORT : any = process.env['APPSETTINGS_POSTGRES_PORT'];
-// const POSTGRES_USER = process.env['APPSETTINGS_POSTGRES_USER'];
-// const POSTGRES_PASSWORD = process.env['APPSETTINGS_POSTGRES_PASSWORD'];
-// const POSTGRES_DATABASE = process.env['APPSETTINGS_POSTGRES_DATABASE'];
-
 class ConfigService {
 
   public isProduction() {
-    return true;
+    return MODE === 'PROD';
   }
 
   public getTypeOrmConfig() : TypeOrmModuleOptions {
-    //console.log("printing process.env: " + JSON.stringify(process.env));
     console.log('MODE::::::', MODE);
     console.log('API PORT::::::', PORT);
     console.log('POSTGRES_HOST:::::::::::::', POSTGRES_HOST);
@@ -61,27 +52,40 @@ class ConfigService {
     console.log('POSTGRES_USER::::::', POSTGRES_USER);
     console.log('POSTGRES_PASSWORD::::::', POSTGRES_PASSWORD);
     console.log('POSTGRES_DATABASE::::::', POSTGRES_DATABASE);
-    const configSettings : TypeOrmModuleOptions= {
-      type: 'postgres',
-      port: POSTGRES_PORT,
-      host: POSTGRES_HOST,
-      username: POSTGRES_USER,
-      password: POSTGRES_PASSWORD,
-      database: POSTGRES_DATABASE,
 
-      entities: ['**/*.entity{.ts,.js}'],
+    var configSettings : TypeOrmModuleOptions;
+    if (this.isProduction()) {
+      configSettings = {
+        type: 'postgres',
+        port: POSTGRES_PORT,
+        host: POSTGRES_HOST,
+        username: POSTGRES_USER,
+        password: POSTGRES_PASSWORD,
+        database: POSTGRES_DATABASE,
 
-      migrationsTableName: 'migration',
-      migrations: ['src/migration/*.ts'],
+        entities: ['**/*.entity{.ts,.js}'],
+        migrationsTableName: 'migration',
+        migrations: ['src/migration/*.ts'],
+        cli: {
+          migrationsDir: 'src/migration',
+          entitiesDir: 'src/entity'
+        },
+        ssl: this.isProduction(),
+      };
+    } else {
+      configSettings = {
+        type: 'postgres',
+        port: POSTGRES_PORT,
+        host: POSTGRES_HOST,
+        username: POSTGRES_USER,
+        password: POSTGRES_PASSWORD,
+        database: POSTGRES_DATABASE,
 
-      cli: {
-        migrationsDir: 'src/migration',
-        entitiesDir: 'src/entity'
-      },
+        entities: ["dist/**/*.entity.js"],
 
-      ssl: this.isProduction(),
-    };
-
+        ssl: this.isProduction(),
+      };
+    }
     return configSettings;
   }
 }
