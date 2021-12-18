@@ -3,7 +3,7 @@ import { IsString, IsUUID} from 'class-validator';
 import { Project } from '../model/project.entity';
 
 export class ProjectDTO implements Readonly<ProjectDTO> {
-  @ApiModelProperty( {required: true})
+  @ApiModelProperty( {required: false})
   @IsUUID()
   id: string;
 
