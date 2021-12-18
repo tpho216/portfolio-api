@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
+const {env} = process;
+const result = require('dotenv').config();
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
@@ -12,7 +15,7 @@ async function bootstrap() {
     .setTitle('Portfolio API')
     .setDescription('API for portfolio data queries').build());
 
-  const PORT = 80;
+  const PORT = env.APPSETTINGS_PORT;
 
   SwaggerModule.setup('docs', app, document);
 
