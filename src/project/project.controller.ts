@@ -6,6 +6,7 @@ import { Project } from "../model/project.entity";
 import { ProjectDTO } from "./project.dto";
 import { ApiBody, ApiHeader, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { HttpExceptionFilter } from "../utils/ExceptionFilters";
+import { CreateProjectDto } from "./create-project.dto";
 
 
 @ApiTags('Projects')
@@ -22,6 +23,13 @@ export class ProjectController {
   public async getAll() {
     return await this.serv.getAll();
   }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'get project by id'})
+  public async findOne(id : string) {
+    return await this.serv.findOne(id)
+  }
+
   @Delete('All')
   @ApiOperation({summary: 'delete all projects'})
   public async deleteAll() {
@@ -38,32 +46,25 @@ export class ProjectController {
           message: e
         }
       }
-
   }
 
 
   //individual project operations
   @Post()
   @ApiOperation({ summary: 'insert a project to current projects'})
-  public async post(@Body() projectDTO: ProjectDTO) : Promise<ProjectDTO> {
-    try {
-      return this.serv.create(projectDTO);
-    }
-    catch (e) {
-      console.log(e);
-      throw new e;
-    }
+  public async post(@Body() createProjectDto: CreateProjectDto) : Promise<CreateProjectDto> {
+      return this.serv.create(createProjectDto);
   }
 
   @Put(':id')
-  @ApiOperation({summary:"replace a project name & description given the project id"})
+  @ApiOperation({summary:"update a project name & description given the project id"})
   @UseFilters(HttpExceptionFilter)
-  async replaceProject(@Param('id') id: string, @Body() project : ProjectDTO) {
+  async update(@Param('id') id: string, @Body() project : ProjectDTO) {
     try {
-      await this.serv.replace(id, project);
+      await this.serv.update(id, project);
       return {
         statusCode: HttpStatus.OK,
-        message: "Project replaced successfully"
+        message: "Project updated successfully"
       };
     }
     catch (e) {
